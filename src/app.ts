@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import bodyparser from "body-parser";
+import routes from "./routes";
 
 class App {
   public app: express.Application;
@@ -11,6 +12,7 @@ class App {
     this.app = express();
     this.middlewares();
     this.home();
+    this.routes();
   }
 
   private middlewares(): void {
@@ -30,6 +32,10 @@ class App {
         version: "0.0.1",
       });
     });
+  }
+
+  private routes(): void {
+    this.app.use(routes);
   }
 }
 
