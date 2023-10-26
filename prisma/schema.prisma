@@ -11,28 +11,83 @@ datasource db {
 }
 
 model User {
-  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email     String      @unique
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String     @unique
   password  String
-  createdAt DateTime    @default(now()) @map("created_at")
-  updatedAt DateTime    @updatedAt @map("updated_at")
   curriculo Curriculo?
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
   @@map("users")
 }
 
 model Curriculo {
-  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId         String   @db.Uuid @unique
-  user           User     @relation(references: [id], fields: [userId])
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId         String         @unique @db.Uuid
+  user           User           @relation(references: [id], fields: [userId])
   nome           String
   telefone       String
   perfilLinkedIn String
   cidade         String
   dataNascimento String
   areaAtuacao    String
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
+  Qualificacao   Qualificacao[]
+  Experiencia    Experiencia[]
+  Curso          Curso[]
+  Idioma         Idioma[]
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
 
   @@map("curriculos")
 }
 
+model Qualificacao {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  curriculoId String    @db.Uuid
+  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  descricao   String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("qualificacoes")
+}
+
+model Curso {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  curriculoId String    @db.Uuid
+  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  titulo      String
+  instituicao String
+  local       String
+  data        DateTime
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("cursos")
+}
+
+model Experiencia {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  curriculoId String    @db.Uuid
+  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  nomeEmpresa String
+  periodo     String
+  cargo       String
+  atividades  String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("experiencias")
+}
+
+model Idioma {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  curriculoId String    @db.Uuid
+  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  nome        String
+  nivel       String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("idiomas")
+}
