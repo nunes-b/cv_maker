@@ -1,4 +1,3 @@
-// models/userModel.ts
 import prismaClient from "../utils/prisma-client";
 
 interface User {
