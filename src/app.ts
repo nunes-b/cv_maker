@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 class App {
   public express: express.Application;
@@ -15,6 +16,7 @@ class App {
     this.express.use(express.json());
     this.express.use(cors());
     this.express.use(helmet());
+    this.express.use(rateLimit());
   }
 
   private routes(): void {
