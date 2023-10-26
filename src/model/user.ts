@@ -1,5 +1,5 @@
 // models/userModel.ts
-import prismaClient from "../../utils/prisma-client";
+import prismaClient from "../utils/prisma-client";
 
 interface User {
   id: string;

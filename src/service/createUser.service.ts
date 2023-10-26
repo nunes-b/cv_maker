@@ -1,4 +1,4 @@
-import { createUser } from "../model/user/user";
+import { createUser } from "../model/user";
 
 async function createUserInService(email: string, password: string) {
   try {
