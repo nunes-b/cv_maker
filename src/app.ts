@@ -5,26 +5,26 @@ import rateLimit from "express-rate-limit";
 import bodyparser from "body-parser";
 
 class App {
-  public express: express.Application;
+  public app: express.Application;
 
   public constructor() {
-    this.express = express();
+    this.app = express();
     this.middlewares();
     this.home();
   }
 
   private middlewares(): void {
-    this.express.use(cors());
-    this.express.use(helmet());
-    this.express.use(express.json());
-    this.express.use(express.urlencoded({ extended: false }));
-    this.express.use(rateLimit());
-    this.express.use(bodyparser.json());
-    this.express.use(bodyparser.urlencoded({ extended: false }));
+    this.app.use(cors());
+    this.app.use(helmet());
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(rateLimit());
+    this.app.use(bodyparser.json());
+    this.app.use(bodyparser.urlencoded({ extended: false }));
   }
 
   private home(): void {
-    this.express.get("/", (req, res) => {
+    this.app.get("/", (req, res) => {
       res.status(200).send({
         title: "CV_MAKER",
         version: "0.0.1",
@@ -33,4 +33,4 @@ class App {
   }
 }
 
-export default new App().express;
+export default new App().app;
