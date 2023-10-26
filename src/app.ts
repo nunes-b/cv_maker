@@ -10,7 +10,7 @@ class App {
   public constructor() {
     this.express = express();
     this.middlewares();
-    this.routes();
+    this.home();
   }
 
   private middlewares(): void {
@@ -23,9 +23,12 @@ class App {
     this.express.use(bodyparser.urlencoded({ extended: false }));
   }
 
-  private routes(): void {
+  private home(): void {
     this.express.get("/", (req, res) => {
-      return res.send("Hello World");
+      res.status(200).send({
+        title: "CV_MAKER",
+        version: "0.0.1",
+      });
     });
   }
 }
