@@ -1,11 +1,17 @@
 import { Request, Response, Router } from "express";
-import { UserController } from "../controller/user/addUser.controller";
+import { AddUserControler } from "../controller/user/addUser.controller";
+import { ListUserController } from "../controller/user/listUser.controller";
 
-const app = Router();
-const userController = new UserController();
+const router = Router();
+const listUserController = new ListUserController();
+const addUserControler = new AddUserControler();
 
-app.post("/user", async (req: Request, res: Response) => {
-  await userController.createUser(req, res);
+router.post("/user", async (req: Request, res: Response) => {
+  await addUserControler.createUser(req, res);
 });
 
-export { app as userRoutes };
+router.get("/user", async (req: Request, res: Response) => {
+  await listUserController.listUser(req, res);
+});
+
+export { router as userRoutes };

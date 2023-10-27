@@ -1,5 +1,5 @@
 import prismaClient from "../utils/prisma-client";
-import UserInterface from "../interfaces/user.interface";
+import UserInterface from "../interfaces/user/user.interface";
 
 class UserManager implements UserInterface {
   id: string;
@@ -20,6 +20,11 @@ class UserManager implements UserInterface {
       },
     });
     return newUser;
+  }
+
+  async listUsers(): Promise<UserInterface[]> {
+    const users = await prismaClient.user.findMany();
+    return users;
   }
 }
 

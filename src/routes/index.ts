@@ -1,11 +1,8 @@
-import { Router } from "express";
-import { UserController } from "../controller/user/addUser.controller";
+import express, { Express } from "express";
+import { userRoutes } from "./user.routes";
 
-const userController = new UserController();
-const routes = Router();
+const routes: Express = express();
 
-routes.post("/user", async (req, res) => {
-  await userController.createUser(req, res);
-});
+routes.use(userRoutes);
 
 export default routes;
