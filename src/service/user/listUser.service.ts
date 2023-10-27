@@ -7,6 +7,10 @@ class ListUserService {
       const userManager = new UserManager("", "", "");
       const users = await userManager.listUsers();
 
+      if (!users) {
+        throw new Error("Os dados não foram fornecidos.");
+      }
+
       return {
         statusCode: 200,
         body: users,

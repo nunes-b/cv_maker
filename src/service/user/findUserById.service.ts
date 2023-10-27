@@ -7,6 +7,10 @@ class FindUserById {
       const userManager = new UserManager("", "", "");
       const user = await userManager.findUserById(id);
 
+      if (!user) {
+        throw new Error("Usuário não encontrado para o ID fornecido.");
+      }
+
       return {
         statusCode: 200,
         body: user,
