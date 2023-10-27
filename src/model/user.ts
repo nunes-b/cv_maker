@@ -1,19 +1,26 @@
 import prismaClient from "../utils/prisma-client";
+import UserInterface from "../interfaces/user.interface";
 
-interface User {
+class UserManager implements UserInterface {
   id: string;
   email: string;
   password: string;
+
+  constructor(id: string, email: string, password: string) {
+    this.id = id;
+    this.email = email;
+    this.password = password;
+  }
+
+  async createUser(): Promise<UserInterface> {
+    const newUser = await prismaClient.user.create({
+      data: {
+        email: this.email,
+        password: this.password,
+      },
+    });
+    return newUser;
+  }
 }
 
-async function createUser(email: string, password: string): Promise<User> {
-  const newUser = await prismaClient.user.create({
-    data: {
-      email: email,
-      password: password,
-    },
-  });
-  return newUser;
-}
-
-export { createUser };
+export { UserManager };

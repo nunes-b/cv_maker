@@ -1,19 +1,22 @@
-import { createUser } from "../model/user";
+import { UserManager } from "../model/user";
 
-async function createUserInService(email: string, password: string) {
-  try {
-    const createdUser = await createUser(email, password);
-    return {
-      statusCode: 201,
-      body: createdUser,
-    };
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error("Erro ao criar user em service " + error.message);
-    } else {
-      throw new Error("Erro desconhecido.");
+class UserService {
+  async createUser(email: string, password: string) {
+    try {
+      const userManager = new UserManager("", email, password);
+      const createdUser = await userManager.createUser();
+      return {
+        statusCode: 201,
+        body: createdUser,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error("Erro ao criar usuário no serviço: " + error.message);
+      } else {
+        throw new Error("Erro desconhecido no serviço.");
+      }
     }
   }
 }
 
-export { createUserInService };
+export { UserService };

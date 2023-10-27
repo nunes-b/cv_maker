@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { userRoutes } from "./user.routes";
+import { UserController } from "../controller/user/addUser.controller";
 
+const userController = new UserController();
 const routes = Router();
 
-routes.use(userRoutes);
+routes.post("/user", async (req, res) => {
+  await userController.createUser(req, res);
+});
 
 export default routes;
