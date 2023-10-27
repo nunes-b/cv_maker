@@ -1,12 +1,11 @@
 import { UserManager } from "../../model/user";
 import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
-import bcrypt from "bcrypt";
 import { MakeItHash } from "../../utils/makeItHash";
 
 class createUserService {
   async createUser(email: string, password: string) {
     try {
-      const userManager = new UserManager("", email, password);
+      const userManager = new UserManager("", email, "");
       const existingUser = await userManager.findUserByEmail(email);
       if (existingUser && existingUser.email === email) {
         throw new EmailAlreadyExistsError(
@@ -15,8 +14,7 @@ class createUserService {
       }
 
       const hashedPassword = MakeItHash(password);
-      const hashedPasswordBcrypt = await bcrypt.hash(hashedPassword, 10);
-      userManager.setPassword(hashedPasswordBcrypt);
+      userManager.setPassword(hashedPassword);
 
       const createdUser = await userManager.createUser();
       return {

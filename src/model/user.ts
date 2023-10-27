@@ -17,16 +17,16 @@ class UserManager {
     this.password = password;
   }
 
-  public async checkPassword(newPassword: string) {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    return this.password === hashedPassword;
+  public async checkPassword(password: string) {
+    return await bcrypt.compare(password, this.password);
   }
 
   public async createUser(): Promise<UserInterface> {
+    const hashedPassword = await bcrypt.hash(this.password, 10);
     const newUser = await prismaClient.user.create({
       data: {
         email: this.email,
-        password: this.password,
+        password: hashedPassword,
       },
     });
     return newUser;
