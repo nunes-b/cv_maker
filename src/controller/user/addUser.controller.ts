@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { createUserService } from "../../service/user/createUser.service";
+import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
 
 class AddUserControler {
   async createUser(req: Request, res: Response) {
@@ -9,7 +10,14 @@ class AddUserControler {
       const response = await userService.createUser(email, password);
       res.status(response.statusCode).json(response.body);
     } catch (error) {
-      res.status(500).json({ message: "Erro ao criar o usuário." });
+      if (error instanceof EmailAlreadyExistsError) {
+        console.error("Erro de e-mail já registrado:", error.message);
+        res
+          .status(400)
+          .json({ message: "E-mail já registrado. Use um e-mail diferente." });
+      } else {
+        res.status(500).json({ message: "Erro ao criar o usuário." });
+      }
     }
   }
 }

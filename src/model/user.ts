@@ -12,7 +12,7 @@ class UserManager implements UserInterface {
     this.password = password;
   }
 
-  async createUser(): Promise<UserInterface> {
+  public async createUser(): Promise<UserInterface> {
     const newUser = await prismaClient.user.create({
       data: {
         email: this.email,
@@ -22,9 +22,38 @@ class UserManager implements UserInterface {
     return newUser;
   }
 
-  async listUsers(): Promise<UserInterface[]> {
+  public async listUsers(): Promise<UserInterface[]> {
     const users = await prismaClient.user.findMany();
     return users;
+  }
+
+  public async findUserById(id: string): Promise<UserInterface | null> {
+    const user = await prismaClient.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return user;
+  }
+
+  public async findUserByEmail(email: string): Promise<UserInterface | null> {
+    const user = await prismaClient.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    return user;
+  }
+
+  public async updateUser(): Promise<UserInterface> {
+    const userUpdated = await prismaClient.user.update({
+      where: { id: this.id },
+      data: {
+        email: this.email,
+        password: this.password,
+      },
+    });
+    return userUpdated;
   }
 }
 

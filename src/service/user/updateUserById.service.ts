@@ -1,26 +1,36 @@
-import { UserManager } from "../../model/user";
+import UserByIdResponse from "../../interfaces/user/user-by-id.interface";
 import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
+import { UserManager } from "../../model/user";
 
-class createUserService {
-  async createUser(email: string, password: string) {
+class UpdateUserService {
+  async updateUser(
+    id: string,
+    email: string,
+    password: string
+  ): Promise<UserByIdResponse | null> {
     try {
-      const userManager = new UserManager("", email, password);
+      const userManager = new UserManager(id, email, password);
+
       const existingUser = await userManager.findUserByEmail(email);
       if (existingUser && existingUser.email === email) {
         throw new EmailAlreadyExistsError(
           "E-mail já existe. Por favor, use um e-mail diferente."
         );
       }
-      const createdUser = await userManager.createUser();
+
+      const user = await userManager.updateUser();
+
       return {
-        statusCode: 201,
-        body: createdUser,
+        statusCode: 200,
+        body: user,
       };
     } catch (error) {
       if (error instanceof EmailAlreadyExistsError) {
         throw error;
       } else if (error instanceof Error) {
-        throw new Error("Erro ao criar usuário no serviço: " + error.message);
+        throw new Error(
+          "Erro ao atualizar o usuário no serviço: " + error.message
+        );
       } else {
         throw new Error("Erro desconhecido no serviço.");
       }
@@ -28,4 +38,4 @@ class createUserService {
   }
 }
 
-export { createUserService };
+export { UpdateUserService };
