@@ -1,5 +1,7 @@
 import { UserManager } from "../../model/user";
 import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
+import bcrypt from "bcrypt";
+import { MakeItHash } from "../../utils/makeItHash";
 
 class createUserService {
   async createUser(email: string, password: string) {
@@ -11,6 +13,11 @@ class createUserService {
           "E-mail já existe. Por favor, use um e-mail diferente."
         );
       }
+
+      const hashedPassword = MakeItHash(password);
+      const hashedPasswordBcrypt = await bcrypt.hash(hashedPassword, 10);
+      userManager.setPassword(hashedPasswordBcrypt);
+
       const createdUser = await userManager.createUser();
       return {
         statusCode: 201,

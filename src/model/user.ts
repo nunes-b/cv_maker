@@ -1,67 +1,55 @@
-import prismaClient from "../utils/prisma-client";
-import UserInterface from "../interfaces/user/user.interface";
+import UserByIdResponse from "../../interfaces/user/user-by-id.interface";
+import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
+import { UserManager } from "../../model/user";
+import bcrypt from "bcrypt";
 
-class UserManager implements UserInterface {
-  id: string;
-  email: string;
-  password: string;
+class UpdateUserService {
+  async updateUser(
+    id: string,
+    email: string,
+    password: string
+  ): Promise<UserByIdResponse | null> {
+    try {
+      const userManager = new UserManager(id, email, "");
 
-  constructor(id: string, email: string, password: string) {
-    this.id = id;
-    this.email = email;
-    this.password = password;
-  }
+      const existingUser = await userManager.findUserByEmail(email);
+      if (!existingUser) {
+        throw new Error("Usuário não encontrado.");
+      }
 
-  public async createUser(): Promise<UserInterface> {
-    const newUser = await prismaClient.user.create({
-      data: {
-        email: this.email,
-        password: this.password,
-      },
-    });
-    return newUser;
-  }
+      const isPasswordValid = await bcrypt.compare(
+        password,
+        existingUser.password
+      );
 
-  public async listUsers(): Promise<UserInterface[]> {
-    const users = await prismaClient.user.findMany();
-    return users;
-  }
+      if (!isPasswordValid) {
+        console.log("Senha fornecida:", password);
+        console.log("Senha armazenada:", existingUser.password);
+        throw new Error("Senha fornecida não corresponde à senha armazenada.");
+      }
 
-  public async findUserById(id: string): Promise<UserInterface | null> {
-    const user = await prismaClient.user.findUnique({
-      where: {
-        id: id,
-      },
-    });
-    return user;
-  }
+      if (email !== existingUser.email) {
+        existingUser.email = email;
+      }
 
-  public async findUserByEmail(email: string): Promise<UserInterface | null> {
-    const user = await prismaClient.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-    return user;
-  }
+      await userManager.updateUser();
 
-  public async updateUser(): Promise<UserInterface> {
-    const userUpdated = await prismaClient.user.update({
-      where: { id: this.id },
-      data: {
-        email: this.email,
-        password: this.password,
-      },
-    });
-    return userUpdated;
-  }
-
-  public async deleteUser(id: string): Promise<UserInterface> {
-    const deleteUser = await prismaClient.user.delete({
-      where: { id: id },
-    });
-    return deleteUser;
+      return {
+        statusCode: 200,
+        body: existingUser,
+      };
+    } catch (error) {
+      if (error instanceof EmailAlreadyExistsError) {
+        throw error;
+      } else if (error instanceof Error) {
+        throw new Error(
+          "Erro ao atualizar o usuário no serviço: " + error.message
+        );
+      } else {
+        throw new Error("Erro desconhecido no serviço.");
+      }
+    }
   }
 }
 
-export { UserManager };
+export { UpdateUserService };
