@@ -55,6 +55,13 @@ class UserManager implements UserInterface {
     });
     return userUpdated;
   }
+
+  public async deleteUser(id: string): Promise<UserInterface> {
+    const deleteUser = await prismaClient.user.delete({
+      where: { id: id },
+    });
+    return deleteUser;
+  }
 }
 
 export { UserManager };
