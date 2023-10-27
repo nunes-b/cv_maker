@@ -1,6 +1,6 @@
-import { UserManager } from "../model/user";
+import { UserManager } from "../../model/user";
 
-class UserService {
+class createUserService {
   async createUser(email: string, password: string) {
     try {
       const userManager = new UserManager("", email, password);
@@ -19,4 +19,4 @@ class UserService {
   }
 }
 
-export { UserService };
+export { createUserService };

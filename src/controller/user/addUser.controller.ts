@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { UserService } from "../../service/createUser.service";
+import { createUserService } from "../../service/user/createUser.service";
 
-class UserController {
+class AddUserControler {
   async createUser(req: Request, res: Response) {
     const { email, password } = req.body;
     try {
-      const userService = new UserService();
+      const userService = new createUserService();
       const response = await userService.createUser(email, password);
       res.status(response.statusCode).json(response.body);
     } catch (error) {
@@ -14,4 +14,4 @@ class UserController {
   }
 }
 
-export { UserController };
+export { AddUserControler };
