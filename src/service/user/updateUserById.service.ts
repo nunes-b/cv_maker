@@ -1,6 +1,7 @@
 import UserByIdResponse from "../../interfaces/user/user-by-id.interface";
 import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
 import { UserManager } from "../../model/user";
+import bcrypt from "bcrypt";
 
 class UpdateUserService {
   async updateUser(
@@ -11,12 +12,8 @@ class UpdateUserService {
     try {
       const userManager = new UserManager(id, email, password);
 
-      const existingUser = await userManager.findUserByEmail(email);
-      if (existingUser && existingUser.email === email) {
-        throw new EmailAlreadyExistsError(
-          "E-mail já existe. Por favor, use um e-mail diferente."
-        );
-      }
+      const hashedPassword = await bcrypt.hash(password, 10);
+      userManager.setPassword(hashedPassword);
 
       const user = await userManager.updateUser();
 
