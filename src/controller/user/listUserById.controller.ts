@@ -7,7 +7,8 @@ class FindUserByIdController {
       const listById = new FindUserById();
       const response = await listById.listUsers(id);
       if (response) {
-        res.status(response.statusCode).json(response.body);
+        const responseBody = { ...response.body, message: response.message };
+        res.status(response.statusCode).json(responseBody);
       } else {
         res.status(500).json({ message: "Usuário não encontrado" });
       }

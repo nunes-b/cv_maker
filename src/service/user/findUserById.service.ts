@@ -13,7 +13,7 @@ class FindUserById {
       };
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error("Erro ao listar usuários no serviço: " + error.message);
+        throw new Error("Erro ao listar usuário no serviço: " + error.message);
       } else {
         throw new Error("Erro desconhecido no serviço.");
       }
