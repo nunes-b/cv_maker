@@ -26,11 +26,11 @@ model Curriculo {
   userId         String         @unique @db.Uuid
   user           User           @relation(references: [id], fields: [userId])
   nome           String
-  telefone       String
-  perfilLinkedIn String
-  cidade         String
+  telefone       String?
+  perfilLinkedIn String?
+  cidade         String?
   dataNascimento String
-  areaAtuacao    String
+  areaAtuacao    String?
   Qualificacao   Qualificacao[]
   Experiencia    Experiencia[]
   Curso          Curso[]
