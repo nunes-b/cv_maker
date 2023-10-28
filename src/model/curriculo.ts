@@ -25,13 +25,40 @@ async function BuildCv(
 }
 
 async function ListCV() {
-  const listCv = await prismaClient.curriculo.findMany();
+  const listCv = await prismaClient.curriculo.findMany({
+    select: {
+      user: { select: { email: true } },
+      nome: true,
+      telefone: true,
+      perfilLinkedIn: true,
+      dataNascimento: true,
+      cidade: true,
+      areaAtuacao: true,
+      Qualificacao: true,
+      Experiencia: true,
+      Curso: true,
+      Idioma: true,
+    },
+  });
   return listCv;
 }
 
 async function listCVById(id: string) {
   const listById = await prismaClient.curriculo.findUnique({
     where: { id: id },
+    select: {
+      user: { select: { email: true } },
+      nome: true,
+      telefone: true,
+      perfilLinkedIn: true,
+      dataNascimento: true,
+      cidade: true,
+      areaAtuacao: true,
+      Qualificacao: true,
+      Experiencia: true,
+      Curso: true,
+      Idioma: true,
+    },
   });
   return listById;
 }
@@ -54,6 +81,19 @@ async function updateCV(id: string, data: Curriculo) {
         perfilLinkedIn: data.perfilLinkedIn || "",
         cidade: data.cidade || "",
         areaAtuacao: data.areaAtuacao || "",
+      },
+      select: {
+        user: { select: { email: true } },
+        nome: true,
+        telefone: true,
+        perfilLinkedIn: true,
+        dataNascimento: true,
+        cidade: true,
+        areaAtuacao: true,
+        Qualificacao: true,
+        Experiencia: true,
+        Curso: true,
+        Idioma: true,
       },
     });
     return updatedCv;

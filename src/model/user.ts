@@ -28,12 +28,23 @@ class UserManager {
         email: this.email,
         password: hashedPassword,
       },
+      select: {
+        id: true,
+        email: true,
+        password: true,
+      },
     });
     return newUser;
   }
 
   public async listUsers(): Promise<UserInterface[]> {
-    const users = await prismaClient.user.findMany();
+    const users = await prismaClient.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        password: false,
+      },
+    });
     return users;
   }
 
@@ -41,6 +52,11 @@ class UserManager {
     const user = await prismaClient.user.findUnique({
       where: {
         id: id,
+      },
+      select: {
+        id: true,
+        email: true,
+        password: false,
       },
     });
     return user;
@@ -50,6 +66,11 @@ class UserManager {
     const user = await prismaClient.user.findUnique({
       where: {
         email: email,
+      },
+      select: {
+        id: true,
+        email: true,
+        password: false,
       },
     });
     return user;
@@ -62,6 +83,11 @@ class UserManager {
         email: this.email,
         password: this.password,
       },
+      select: {
+        id: true,
+        email: true,
+        password: false,
+      },
     });
     return userUpdated;
   }
@@ -69,6 +95,11 @@ class UserManager {
   public async deleteUser(id: string): Promise<UserInterface> {
     const deleteUser = await prismaClient.user.delete({
       where: { id: id },
+      select: {
+        id: true,
+        email: true,
+        password: false,
+      },
     });
     return deleteUser;
   }
