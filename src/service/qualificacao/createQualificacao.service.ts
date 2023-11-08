@@ -4,8 +4,8 @@ import { makeAQualificacao } from "../../model/qualificacao";
 async function createQualificacaoService(data: QualificacaoSchema) {
   try {
     const newQualificacao = await makeAQualificacao(
-      data.curriculoId,
-      data.descricao
+      data.descricao,
+      data.curriculoId
     );
     return {
       statusCode: 201,
@@ -14,6 +14,8 @@ async function createQualificacaoService(data: QualificacaoSchema) {
       },
     };
   } catch (error) {
+    console.log(error);
+
     return {
       statusCode: 500,
       body: {
