@@ -27,9 +27,10 @@ async function BuildCv(
 async function ListCV() {
   const listCv = await prismaClient.curriculo.findMany({
     select: {
-      user: { select: { email: true } },
+      id: true,
       nome: true,
       telefone: true,
+      user: { select: { email: true } },
       perfilLinkedIn: true,
       dataNascimento: true,
       cidade: true,

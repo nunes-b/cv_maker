@@ -1,5 +1,5 @@
 import { UserManager } from "../../model/user";
-import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
+import EmailAlreadyExistsError from "../../utils/errorHandling/errorHasEmail";
 import { MakeItHash } from "../../utils/makeItHash";
 
 class createUserService {

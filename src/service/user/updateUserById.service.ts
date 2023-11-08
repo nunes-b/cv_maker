@@ -1,5 +1,5 @@
 import UserByIdResponse from "../../interfaces/user/user-by-id.interface";
-import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
+import EmailAlreadyExistsError from "../../utils/errorHandling/errorHasEmail";
 import { UserManager } from "../../model/user";
 import bcrypt from "bcrypt";
 

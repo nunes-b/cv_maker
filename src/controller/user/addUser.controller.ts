@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createUserService } from "../../service/user/createUser.service";
-import EmailAlreadyExistsError from "../../errorHandling/errorHasEmail";
+import EmailAlreadyExistsError from "../../utils/errorHandling/errorHasEmail";
 
 class AddUserControler {
   async createUser(req: Request, res: Response) {
