@@ -24,11 +24,11 @@ async function listQualificacao() {
   const responselist = await prismaClient.qualificacao.findMany({
     select: {
       id: false,
+      curriculoId: true,
       descricao: true,
-      curriculoId: false,
       curriculo: false,
       createdAt: false,
-      updatedAt: false,
+      updatedAt: true,
     },
   });
   return responselist;
@@ -39,11 +39,11 @@ async function ListQualificacaoById(id: string) {
     where: { id: id },
     select: {
       id: true,
-      descricao: true,
       curriculoId: false,
+      descricao: true,
       curriculo: false,
-      createdAt: false,
-      updatedAt: false,
+      createdAt: true,
+      updatedAt: true,
     },
   });
   return listById;
@@ -64,8 +64,8 @@ async function UpdateDescription(id: string, data: QualificacaoSchema) {
     },
     select: {
       id: false,
-      descricao: true,
       curriculoId: false,
+      descricao: true,
       curriculo: false,
       createdAt: false,
       updatedAt: true,
