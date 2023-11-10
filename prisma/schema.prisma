@@ -41,7 +41,7 @@ model Curriculo {
 model Qualificacao {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   curriculoId String    @db.Uuid
-  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  curriculo   Curriculo @relation(fields: [curriculoId], references: [id], onDelete: Cascade)
   descricao   String
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
@@ -52,7 +52,7 @@ model Qualificacao {
 model Curso {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   curriculoId String    @db.Uuid
-  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  curriculo   Curriculo @relation(fields: [curriculoId], references: [id], onDelete: Cascade)
   titulo      String
   instituicao String
   local       String
@@ -66,7 +66,7 @@ model Curso {
 model Experiencia {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   curriculoId String    @db.Uuid
-  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  curriculo   Curriculo @relation(fields: [curriculoId], references: [id], onDelete: Cascade)
   nomeEmpresa String
   periodo     String
   cargo       String
@@ -80,7 +80,7 @@ model Experiencia {
 model Idioma {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   curriculoId String    @db.Uuid
-  curriculo   Curriculo @relation(references: [id], fields: [curriculoId])
+  curriculo   Curriculo @relation(fields: [curriculoId], references: [id], onDelete: Cascade)
   nome        String
   nivel       String
   createdAt   DateTime  @default(now()) @map("created_at")
