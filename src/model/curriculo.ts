@@ -57,7 +57,7 @@ async function listCVById(id: string) {
       dataNascimento: true,
       cidade: true,
       areaAtuacao: true,
-      Qualificacao: true,
+      Qualificacao: { select: { descricao: true, updatedAt: true } },
       Experiencia: true,
       Curso: true,
       Idioma: true,
