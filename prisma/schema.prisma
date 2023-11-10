@@ -68,7 +68,8 @@ model Experiencia {
   curriculoId String    @db.Uuid
   curriculo   Curriculo @relation(fields: [curriculoId], references: [id], onDelete: Cascade)
   nomeEmpresa String
-  periodo     String
+  periodoInicio     String
+  periodoFim  String
   cargo       String
   atividades  String
   createdAt   DateTime  @default(now()) @map("created_at")
