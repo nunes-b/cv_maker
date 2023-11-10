@@ -6,10 +6,10 @@ async function createExpService(data: ExpSchema) {
     const addExp = await makeExp(
       data.curriculoId,
       data.nomeEmpresa,
-      data.cargo,
-      data.atividades,
       data.periodoInicio,
-      data.periodoFim
+      data.periodoFim,
+      data.cargo,
+      data.atividades
     );
     return {
       statusCode: 201,

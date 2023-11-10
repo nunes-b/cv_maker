@@ -23,9 +23,9 @@ async function makeExp(
       curriculoId: true,
       nomeEmpresa: true,
       cargo: true,
-      atividades: true,
       periodoInicio: true,
       periodoFim: true,
+      atividades: true,
       updatedAt: true,
     },
   });

@@ -36,7 +36,15 @@ async function ListCV() {
       cidade: true,
       areaAtuacao: true,
       Qualificacao: { select: { descricao: true } },
-      Experiencia: false,
+      Experiencia: {
+        select: {
+          nomeEmpresa: true,
+          cargo: true,
+          periodoInicio: true,
+          periodoFim: true,
+          atividades: true,
+        },
+      },
       Curso: {
         select: {
           titulo: true,
@@ -65,7 +73,15 @@ async function listCVById(id: string) {
       cidade: true,
       areaAtuacao: true,
       Qualificacao: { select: { descricao: true } },
-      Experiencia: true,
+      Experiencia: {
+        select: {
+          nomeEmpresa: true,
+          cargo: true,
+          periodoInicio: true,
+          periodoFim: true,
+          atividades: true,
+        },
+      },
       Curso: {
         select: { titulo: true, instituicao: true, local: true, data: true },
       },
@@ -103,7 +119,15 @@ async function updateCV(id: string, data: Curriculo) {
         cidade: true,
         areaAtuacao: true,
         Qualificacao: true,
-        Experiencia: true,
+        Experiencia: {
+          select: {
+            nomeEmpresa: true,
+            cargo: true,
+            periodoInicio: true,
+            periodoFim: true,
+            atividades: true,
+          },
+        },
         Curso: true,
         Idioma: true,
       },
