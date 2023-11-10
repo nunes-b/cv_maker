@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { listQualificacaoByIdService } from "../../service/qualificacao/listQualificacaoById.service";
 
-async function listQualificacao(req: Request, res: Response) {
+async function listQualificacaoById(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const response = await listQualificacaoByIdService(id);
@@ -13,4 +13,4 @@ async function listQualificacao(req: Request, res: Response) {
   }
 }
 
-export { listQualificacao };
+export { listQualificacaoById };
