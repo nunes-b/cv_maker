@@ -3,7 +3,15 @@ import { Request, Response } from "express";
 
 async function updateCursoController(req: Request, res: Response) {
   try {
-    const { curriculoId, titulo, instituicao, local, data } = req.body;
+    const {
+      curriculoId,
+      titulo,
+      instituicao,
+      local,
+      data,
+      urlCertificado,
+      expire,
+    } = req.body;
 
     const contentToUpdate = {
       curriculoId,
@@ -11,6 +19,8 @@ async function updateCursoController(req: Request, res: Response) {
       instituicao,
       local,
       data,
+      urlCertificado,
+      expire,
     };
 
     if (!contentToUpdate || !contentToUpdate.curriculoId) {

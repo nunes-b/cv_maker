@@ -10,6 +10,7 @@ async function ListCVService() {
       },
     };
   } catch (error) {
+    console.log(error);
     return {
       statusCode: 500,
       body: {

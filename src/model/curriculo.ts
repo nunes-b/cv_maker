@@ -36,9 +36,16 @@ async function ListCV() {
       cidade: true,
       areaAtuacao: true,
       Qualificacao: { select: { descricao: true } },
-      Experiencia: true,
+      Experiencia: false,
       Curso: {
-        select: { titulo: true, instituicao: true, local: true, data: true },
+        select: {
+          titulo: true,
+          instituicao: true,
+          local: true,
+          data: true,
+          expire: true,
+          urlCertificado: true,
+        },
       },
       Idioma: true,
     },
