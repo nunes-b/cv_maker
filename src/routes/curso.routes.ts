@@ -3,6 +3,7 @@ import { createCursoController } from "../controller/curso/addCurso.controller";
 import { listCursoController } from "../controller/curso/listCursos.controller";
 import { listCursoByIdController } from "../controller/curso/listCursoById.controller";
 import { updateCursoController } from "../controller/curso/updateCurso.controller";
+import { deleteCursoController } from "../controller/curso/deleteCurso.controller";
 
 const router = Router();
 
@@ -17,6 +18,9 @@ router.get("/curso/:id", async (req: Request, res: Response) => {
 });
 router.put("/curso/:id", async (req: Request, res: Response) => {
   await updateCursoController(req, res);
+});
+router.delete("/curso/:id", async (req: Request, res: Response) => {
+  await deleteCursoController(req, res);
 });
 
 export { router as CursoRoutes };
