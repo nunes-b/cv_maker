@@ -3,5 +3,7 @@ export default interface CursoSchema {
   titulo: string;
   instituicao: string;
   local: string;
+  urlCertificado: string;
+  expire: boolean;
   data: Date;
 }

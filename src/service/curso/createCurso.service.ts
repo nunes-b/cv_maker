@@ -8,7 +8,9 @@ async function createCursoService(data: CursoSchema) {
       data.titulo,
       data.instituicao,
       data.local,
-      data.data
+      data.data,
+      data.urlCertificado,
+      data.expire
     );
     return {
       statusCode: 201,

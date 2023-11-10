@@ -6,7 +6,9 @@ async function makeCurso(
   titulo: string,
   instituicao: string,
   local: string,
-  data: Date
+  data: Date,
+  urlCertificado: string,
+  expire: boolean
 ): Promise<CursoSchema> {
   const qualificacao = await prismaClient.curso.create({
     data: {
@@ -15,6 +17,8 @@ async function makeCurso(
       instituicao: instituicao,
       local: local,
       data: data,
+      urlCertificado: urlCertificado,
+      expire: expire,
     },
     select: {
       id: true,
@@ -23,6 +27,8 @@ async function makeCurso(
       titulo: true,
       local: true,
       data: true,
+      urlCertificado: true,
+      expire: true,
       createdAt: true,
     },
   });
@@ -38,6 +44,8 @@ async function listCurso() {
       titulo: true,
       local: true,
       data: true,
+      urlCertificado: true,
+      expire: true,
       updatedAt: true,
     },
   });
@@ -54,6 +62,8 @@ async function listCursoById(id: string) {
       titulo: true,
       local: true,
       data: true,
+      urlCertificado: true,
+      expire: true,
       updatedAt: true,
     },
   });
@@ -83,6 +93,8 @@ async function updateCurso(id: string, data: CursoSchema) {
       titulo: true,
       local: true,
       data: true,
+      urlCertificado: true,
+      expire: true,
       updatedAt: true,
     },
   });

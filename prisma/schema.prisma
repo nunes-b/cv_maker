@@ -57,6 +57,8 @@ model Curso {
   instituicao String
   local       String
   data        DateTime
+  urlCertificado  String
+  expire  Boolean @default(true)
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
