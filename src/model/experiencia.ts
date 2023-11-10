@@ -32,22 +32,20 @@ async function makeExp(
   return experiencias;
 }
 
-// async function listCurso() {
-//   const responselist = await prismaClient.curso.findMany({
-//     select: {
-//       id: true,
-//       curriculoId: true,
-//       instituicao: true,
-//       titulo: true,
-//       local: true,
-//       data: true,
-//       urlCertificado: true,
-//       expire: true,
-//       updatedAt: true,
-//     },
-//   });
-//   return responselist;
-// }
+async function listExps() {
+  const responselist = await prismaClient.experiencia.findMany({
+    select: {
+      curriculoId: true,
+      nomeEmpresa: true,
+      cargo: true,
+      periodoInicio: true,
+      periodoFim: true,
+      atividades: true,
+      updatedAt: true,
+    },
+  });
+  return responselist;
+}
 
 // async function listCursoById(id: string) {
 //   const listById = await prismaClient.curso.findUnique({
@@ -98,5 +96,4 @@ async function makeExp(
 //   return updateCursoD;
 // }
 
-export { makeExp };
-// listCurso, listCursoById, updateCurso, delCurso
+export { makeExp, listExps };
