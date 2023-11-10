@@ -17,7 +17,7 @@ async function listQualificacaoByIdService(id: string) {
       return {
         statusCode: 404,
         body: {
-          mensagem: "Erro ao encontrar sua qualificação",
+          mensagem: "Sua qualificação não se encontra no nosso banco de dados.",
         },
       };
     }
