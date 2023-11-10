@@ -4,6 +4,7 @@ import { userRoutes } from "./user.routes";
 import { CurriculoRoutes } from "./curriculo.routes";
 import { qualificacaoRoutes } from "./qualificacao.routes";
 import { CursoRoutes } from "./curso.routes";
+import { expRoutes } from "./experiencia.routes";
 
 const routes: Express = express();
 
@@ -12,5 +13,6 @@ routes.use(userRoutes);
 routes.use(CurriculoRoutes);
 routes.use(qualificacaoRoutes);
 routes.use(CursoRoutes);
+routes.use(expRoutes);
 
 export default routes;
