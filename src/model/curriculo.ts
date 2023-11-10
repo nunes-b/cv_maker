@@ -35,11 +35,11 @@ async function ListCV() {
       dataNascimento: true,
       cidade: true,
       areaAtuacao: true,
-      Qualificacao: {
-        select: { descricao: true, updatedAt: true },
-      },
+      Qualificacao: { select: { descricao: true } },
       Experiencia: true,
-      Curso: true,
+      Curso: {
+        select: { titulo: true, instituicao: true, local: true, data: true },
+      },
       Idioma: true,
     },
   });
@@ -57,9 +57,11 @@ async function listCVById(id: string) {
       dataNascimento: true,
       cidade: true,
       areaAtuacao: true,
-      Qualificacao: { select: { descricao: true, updatedAt: true } },
+      Qualificacao: { select: { descricao: true } },
       Experiencia: true,
-      Curso: true,
+      Curso: {
+        select: { titulo: true, instituicao: true, local: true, data: true },
+      },
       Idioma: true,
     },
   });
