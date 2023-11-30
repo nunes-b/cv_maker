@@ -55,19 +55,31 @@ async function ListCV() {
           urlCertificado: true,
         },
       },
-      Idioma: true,
+      Idioma: {
+        select: {
+          nome: true,
+          nivel: true,
+        },
+      },
     },
   });
-  return listCv;
+
+  const formattedListCv = listCv.map((cv) => ({
+    ...cv,
+    user: cv.user.email,
+  }));
+
+  return formattedListCv;
 }
 
 async function listCVById(id: string) {
   const listById = await prismaClient.curriculo.findUnique({
     where: { id: id },
     select: {
-      user: { select: { email: true } },
+      id: true,
       nome: true,
       telefone: true,
+      user: { select: { email: true } },
       perfilLinkedIn: true,
       dataNascimento: true,
       cidade: true,
@@ -83,9 +95,21 @@ async function listCVById(id: string) {
         },
       },
       Curso: {
-        select: { titulo: true, instituicao: true, local: true, data: true },
+        select: {
+          titulo: true,
+          instituicao: true,
+          local: true,
+          data: true,
+          expire: true,
+          urlCertificado: true,
+        },
       },
-      Idioma: true,
+      Idioma: {
+        select: {
+          nome: true,
+          nivel: true,
+        },
+      },
     },
   });
   return listById;
