@@ -6,7 +6,7 @@ async function deleteCursoService(id: string) {
     return {
       statusCode: 200,
       body: {
-        apagado: cursoDeleted,
+        deleted: cursoDeleted,
       },
     };
   } catch (error) {

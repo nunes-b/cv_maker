@@ -6,7 +6,7 @@ async function deleteCVService(id: string) {
     return {
       statusCode: 200,
       body: {
-        apagado: cvDeleted,
+        deleted: cvDeleted,
       },
     };
   } catch (error) {

@@ -35,6 +35,7 @@ async function makeExp(
 async function listExps() {
   const responselist = await prismaClient.experiencia.findMany({
     select: {
+      id: true,
       curriculoId: true,
       nomeEmpresa: true,
       cargo: true,
@@ -63,35 +64,36 @@ async function listExpsById(id: string) {
   return listById;
 }
 
-// async function delCurso(id: string) {
-//   const deletedCurso = await prismaClient.curso.delete({
-//     where: { id: id },
-//   });
-//   return deletedCurso;
-// }
+async function delExp(id: string) {
+  const deletedCurso = await prismaClient.experiencia.delete({
+    where: { id: id },
+  });
+  return deletedCurso;
+}
 
-// async function updateCurso(id: string, data: CursoSchema) {
-//   const updateCursoD = await prismaClient.curso.update({
-//     where: { id: id },
-//     data: {
-//       instituicao: data.instituicao,
-//       titulo: data.titulo,
-//       local: data.local,
-//       data: data.data,
-//     },
-//     select: {
-//       id: false,
-//       curriculoId: false,
-//       instituicao: true,
-//       titulo: true,
-//       local: true,
-//       data: true,
-//       urlCertificado: true,
-//       expire: true,
-//       updatedAt: true,
-//     },
-//   });
-//   return updateCursoD;
-// }
+async function updateExp(id: string, data: ExpSchema) {
+  const updateExpD = await prismaClient.experiencia.update({
+    where: { id: id },
+    data: {
+      curriculoId: data.curriculoId,
+      nomeEmpresa: data.nomeEmpresa,
+      cargo: data.cargo,
+      periodoInicio: data.periodoInicio,
+      periodoFim: data.periodoFim,
+      atividades: data.atividades,
+    },
+    select: {
+      id: true,
+      curriculoId: true,
+      nomeEmpresa: true,
+      cargo: true,
+      periodoInicio: true,
+      periodoFim: true,
+      atividades: true,
+      updatedAt: true,
+    },
+  });
+  return updateExpD;
+}
 
-export { makeExp, listExps, listExpsById };
+export { makeExp, listExps, listExpsById, delExp, updateExp };
