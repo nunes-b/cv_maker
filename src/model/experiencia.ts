@@ -47,23 +47,21 @@ async function listExps() {
   return responselist;
 }
 
-// async function listCursoById(id: string) {
-//   const listById = await prismaClient.curso.findUnique({
-//     where: { id: id },
-//     select: {
-//       id: false,
-//       curriculoId: true,
-//       instituicao: true,
-//       titulo: true,
-//       local: true,
-//       data: true,
-//       urlCertificado: true,
-//       expire: true,
-//       updatedAt: true,
-//     },
-//   });
-//   return listById;
-// }
+async function listExpsById(id: string) {
+  const listById = await prismaClient.experiencia.findUnique({
+    where: { id: id },
+    select: {
+      curriculoId: true,
+      nomeEmpresa: true,
+      cargo: true,
+      periodoInicio: true,
+      periodoFim: true,
+      atividades: true,
+      updatedAt: true,
+    },
+  });
+  return listById;
+}
 
 // async function delCurso(id: string) {
 //   const deletedCurso = await prismaClient.curso.delete({
@@ -96,4 +94,4 @@ async function listExps() {
 //   return updateCursoD;
 // }
 
-export { makeExp, listExps };
+export { makeExp, listExps, listExpsById };
