@@ -14,7 +14,7 @@ async function createExpService(data: ExpSchema) {
     return {
       statusCode: 201,
       body: {
-        data: addExp,
+        experiência: addExp,
       },
     };
   } catch (error) {

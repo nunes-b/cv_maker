@@ -6,7 +6,7 @@ async function listExpsService() {
     return {
       statusCode: 200,
       body: {
-        cursos: list,
+        experiência: list,
       },
     };
   } catch (error) {
