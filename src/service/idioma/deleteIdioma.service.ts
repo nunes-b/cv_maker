@@ -1,6 +1,6 @@
 import { delidioma } from "../../model/idioma";
 
-async function deleteExpService(id: string) {
+async function deleteIdiomaService(id: string) {
   try {
     const idiomaDeleted = await delidioma(id);
     return {
@@ -19,4 +19,4 @@ async function deleteExpService(id: string) {
   }
 }
 
-export { deleteExpService };
+export { deleteIdiomaService };
